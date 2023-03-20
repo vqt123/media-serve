@@ -16,7 +16,7 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 	let filename = (params as any).filename;
 	let fileType = (params as any).filetype;
 
-	let filePath = `z:/images/${filename}.${fileType}`;
+	let filePath = `z:/images/${filename}.webp`;
 
 	//let buffer = await readFile(filePath);
 	let imageBufferWithMetadata = fs.readFileSync(filePath);
@@ -31,13 +31,8 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 	}
 
 	if (fileType == 'jpg') {
-		t1 = t1.jpeg({ quality: 80 });
+		t1 = t1.jpeg();
 	}
-
-	if (fileType == 'webp') {
-		t1 = t1.webp({ quality: 80 });
-	}
-
 	imageBufferWithMetadata = await t1.toBuffer();
 	let d4 = Date.now();
 
