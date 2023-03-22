@@ -30,7 +30,7 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 		t1 = t1.resize(parseInt(urlParams['width']));
 	}
 
-	if (fileType == 'jpg') {
+	if (fileType == 'jpg' || fileType == 'jpeg') {
 		t1 = t1.jpeg();
 	}
 	imageBufferWithMetadata = await t1.toBuffer();
