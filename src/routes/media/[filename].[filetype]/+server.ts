@@ -16,6 +16,8 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 	let filename = (params as any).filename;
 	let fileType = (params as any).filetype;
 
+	let cache = url.searchParams.get('cache');
+
 	let filePath = `z:/images/${filename}.webp`;
 
 	//let buffer = await readFile(filePath);
@@ -38,9 +40,16 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 
 	//vlog('ELAPSED 3', d4 - d3);
 
-	setHeaders({
-		'Cache-Control': 'max-age=31536000'
-	});
+	if (cache == 'none') {
+		setHeaders({
+			'Cache-Control': 'no-cache'
+		});
+		console.log('NO CACHE');
+	} else {
+		setHeaders({
+			'Cache-Control': 'max-age=31536000'
+		});
+	}
 
 	return new Response(imageBufferWithMetadata);
 };
