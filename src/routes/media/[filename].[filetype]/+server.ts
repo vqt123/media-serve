@@ -40,7 +40,7 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 	let d4 = Date.now();
 
 	//vlog('ELAPSED 3', d4 - d3);
-	console.log(filename);
+	//console.log(filename);
 	if (cache == 'none') {
 		setHeaders({
 			'Cache-Control': 'no-cache'
