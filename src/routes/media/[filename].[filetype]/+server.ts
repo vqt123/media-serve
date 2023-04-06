@@ -13,12 +13,13 @@ import type { RequestHandler } from './$types';
 export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) => {
 	let urlParams = Object.fromEntries(url.searchParams);
 	let d1 = Date.now();
-	let filename = (params as any).filename;
+	let filename: string = (params as any).filename;
 	let fileType = (params as any).filetype;
 
 	let cache = url.searchParams.get('cache');
+	let shardDir = filename.substring(0, 2).toLowerCase();
 
-	let filePath = `z:/images/${filename}.webp`;
+	let filePath = `z:/image-shards/${shardDir}/${filename}.webp`;
 
 	//let buffer = await readFile(filePath);
 	let imageBufferWithMetadata = fs.readFileSync(filePath);
@@ -39,12 +40,11 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 	let d4 = Date.now();
 
 	//vlog('ELAPSED 3', d4 - d3);
-
+	console.log(filename);
 	if (cache == 'none') {
 		setHeaders({
 			'Cache-Control': 'no-cache'
 		});
-		console.log('NO CACHE');
 	} else {
 		setHeaders({
 			'Cache-Control': 'max-age=31536000'
