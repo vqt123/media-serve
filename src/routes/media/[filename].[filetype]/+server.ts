@@ -36,6 +36,11 @@ export const GET: RequestHandler = async ({ locals, url, setHeaders, params }) =
 	if (fileType == 'jpg' || fileType == 'jpeg') {
 		t1 = t1.jpeg();
 	}
+
+	if (fileType == 'png') {
+		t1 = t1.png();
+	}
+
 	imageBufferWithMetadata = await t1.toBuffer();
 	let d4 = Date.now();
 
